@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# Portfolio
 
-First, run the development server:
+[![Live](https://img.shields.io/badge/LIVE-portfolio--aguirre--alexis.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-aguirre-alexis.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Multi-mode interactive portfolio — AI · Developer · Gaming**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Overview
 
-## Learn More
+Personal portfolio with three distinct visual modes, each with its own aesthetic, Three.js background, font system, and project layout.
 
-To learn more about Next.js, take a look at the following resources:
+| Mode | Style | Background |
+|------|-------|------------|
+| AI & Agents | Terminal / agent registry | Neural network (Three.js) |
+| Developer | GitHub / Vercel aesthetic | Wireframe shapes (Three.js) |
+| Gaming | RPG character select | Isometric hex map (Three.js) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Mode-switching with scan-line transition animation
+- Three distinct Three.js animated backgrounds with bloom post-processing
+- RPG character select hero screen for Gaming mode
+- Custom cursor, Lenis smooth scroll
+- Fully responsive (mobile-first)
 
-## Deploy on Vercel
+## Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[![Skills](https://skillicons.dev/icons?i=nextjs,ts,threejs,tailwind,vercel&theme=dark)]()
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`Next.js 15` · `TypeScript` · `Three.js / R3F` · `Framer Motion` · `Lenis`
+
+---
+
+<div align="center">
+
+[View live →](https://portfolio-aguirre-alexis.vercel.app)
+
+</div>
