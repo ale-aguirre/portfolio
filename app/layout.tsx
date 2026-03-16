@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from './context/ThemeContext'
+import { CSPostHogProvider } from './providers'
 
 export const metadata: Metadata = {
   title: 'Alexis Aguirre — Frontend Engineer',
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body><ThemeProvider>{children}</ThemeProvider></body>
+      <body><CSPostHogProvider><ThemeProvider>{children}</ThemeProvider></CSPostHogProvider></body>
     </html>
   )
 }
