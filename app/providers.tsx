@@ -11,6 +11,8 @@ if (typeof window !== 'undefined') {
     capture_pageview: false,
     autocapture: true,
   });
+  // Tag every event with the source app so we can filter in PostHog dashboard
+  posthog.register({ app: 'portfolio' });
 }
 
 function PostHogPageView() {
