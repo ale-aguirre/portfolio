@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ale-aguirre.dev — Portfolio
 
-## Getting Started
+Personal portfolio of **Alexis Aguirre**, frontend engineer building AI agents, SaaS products and browser experiences.
 
-First, run the development server:
+**Live demo:** https://ale-aguirre.vercel.app
+
+## Branches
+
+| Branch | Description |
+|--------|-------------|
+| `main` | Original version — multi-mode portfolio (AI / Developer / Gaming) with Three.js backgrounds |
+| `redesign/opcion-b` | **Current active** — AI-focused redesign, no WebGL, faster, cleaner |
+
+## Stack
+
+- **Framework:** Next.js 16.1.6 (App Router)
+- **Language:** TypeScript
+- **Animations:** Framer Motion
+- **Styles:** CSS variables + Tailwind v4 (minimal usage)
+- **Analytics:** PostHog
+- **Deploy:** Vercel
+
+## Tracked events (PostHog)
+
+| Event | Trigger |
+|-------|---------|
+| `$pageview` | Every page load |
+| `click_cta_work` | "View work" button in hero |
+| `click_cta_contact` | "Get in touch" button in hero |
+| `view_project` | Click on a project card link |
+| `click_email` | Email link in contact section |
+| `click_social` | LinkedIn or GitHub links |
+| `click_cv_download` | CV download button |
+
+## Local setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+
+# Copy env vars
+cp .env.example .env.local
+# Add: NEXT_PUBLIC_POSTHOG_KEY=<your-key>
+
+npm run dev     # localhost:3000
+npm run build   # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Projects featured
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Project | Type | Stack |
+|---------|------|-------|
+| CORTEX | AI agent dashboard | Next.js 16, Groq, SQLite, SSE |
+| job-hunter | Autonomous job agent | Node.js, Playwright, Claude Haiku |
+| Forgix | AI browser game | Three.js, R3F, Groq SDK, Supabase |
+| LadyManager | Image generation pipeline | FastAPI, RunPod, Stable Diffusion XL |
+| SKUscribe | Amazon listing SaaS | Claude API, Amazon SP-API, Stripe |
+| nuggets-core | AI memory layer | LanceDB, OpenRouter, Telegram Bot |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy to Vercel
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Connect repo to Vercel
+2. Set env var: `NEXT_PUBLIC_POSTHOG_KEY`
+3. Deploy branch `redesign/opcion-b` (or merge to main)
