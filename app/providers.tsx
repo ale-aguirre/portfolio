@@ -3,12 +3,14 @@
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 import { ReactNode, Suspense, useEffect } from 'react';
+import { LangProvider } from './context/LangContext';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Lenis from 'lenis';
 
 if (typeof window !== 'undefined') {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-    api_host: 'https://app.posthog.com',
+    api_host: '/ingest',
+    ui_host: 'https://us.posthog.com',
     capture_pageview: false,
     autocapture: true,
   });
@@ -54,13 +56,15 @@ function LenisProvider({ children }: { children: ReactNode }) {
 
 export function CSPostHogProvider({ children }: { children: ReactNode }) {
   return (
-    <PostHogProvider client={posthog}>
-      <LenisProvider>
-        <Suspense fallback={null}>
-          <PostHogPageView />
-        </Suspense>
-        {children}
-      </LenisProvider>
-    </PostHogProvider>
+    <LangProvider>
+      <PostHogProvider client={posthog}>
+        <LenisProvider>
+          <Suspense fallback={null}>
+            <PostHogPageView />
+          </Suspense>
+          {children}
+        </LenisProvider>
+      </PostHogProvider>
+    </LangProvider>
   );
 }
