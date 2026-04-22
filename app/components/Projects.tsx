@@ -103,8 +103,10 @@ const projects: Project[] = [
     name: 'job-hunter',
     tag: 'AI Agent',
     stack: ['Node.js', 'Playwright', 'Claude Haiku', 'Chrome CDP', 'Supabase'],
+    url: 'https://github.com/ale-aguirre/claude-job-hunter',
     year: '2025',
     status: 'active dev',
+    image: '/projects/job-hunter.jpg',
   },
   {
     id: 'nuggets-core',
