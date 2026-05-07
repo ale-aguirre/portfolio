@@ -31,72 +31,13 @@ type Project = {
 
 const projects: Project[] = [
   {
-    id: 'kitsuflow',
-    name: 'Kitsuflow',
-    tag: 'SaaS',
-    stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'RunPod'],
-    url: 'https://kitsuflow.vercel.app',
-    year: '2026',
-    status: 'active dev',
-    image: '/projects/kitsuflow.jpg',
-  },
-  {
-    id: 'calibre',
-    name: 'Calibre Studio',
-    tag: 'SaaS',
-    stack: ['Next.js', 'TypeScript', 'Framer Motion', 'Vercel'],
-    url: 'https://thecalibre.studio',
-    year: '2025',
-    status: 'production',
-    image: '/projects/calibre.jpg',
-  },
-  {
-    id: 'docunify',
-    name: 'DocUnify',
-    tag: 'SaaS',
-    stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
-    year: '2025',
-    status: 'beta',
-    image: '/projects/docunify.jpg',
-    client: true,
-  },
-  {
     id: 'cortex',
     name: 'CORTEX',
-    tag: 'Dashboard',
+    tag: 'AI Agent',
     stack: ['Next.js 16', 'Claude Agent SDK', 'TypeScript', 'Chrome CDP', 'Telegram'],
     year: '2025',
     status: 'active dev',
     image: '/projects/cortex.jpg',
-  },
-  {
-    id: 'total-limpieza',
-    name: 'Total Limpieza',
-    tag: 'Dashboard',
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'Vercel'],
-    year: '2024',
-    status: 'production',
-    image: '/projects/total-limpieza.jpg',
-    client: true,
-  },
-  {
-    id: 'cadete',
-    name: 'CadeteApp',
-    tag: 'Dashboard',
-    stack: ['Next.js', 'TypeScript', 'Vercel'],
-    year: '2025',
-    status: 'demo',
-    image: '/projects/cadete.jpg',
-    client: true,
-  },
-  {
-    id: 'ladymanager',
-    name: 'LadyManager',
-    tag: 'Image Pipeline',
-    stack: ['Next.js 14', 'FastAPI', 'RunPod', 'Stable Diffusion XL', 'Python'],
-    year: '2024',
-    status: 'production',
-    image: '/projects/ladymanager.jpg',
   },
   {
     id: 'job-hunter',
@@ -117,6 +58,15 @@ const projects: Project[] = [
     status: 'active dev',
   },
   {
+    id: 'ladymanager',
+    name: 'LadyManager',
+    tag: 'Image Pipeline',
+    stack: ['Next.js 14', 'FastAPI', 'RunPod', 'Stable Diffusion XL', 'Python'],
+    year: '2024',
+    status: 'production',
+    image: '/projects/ladymanager.jpg',
+  },
+  {
     id: 'waifu',
     name: 'MyAiko',
     tag: 'AI Agent',
@@ -125,6 +75,46 @@ const projects: Project[] = [
     year: '2024',
     status: 'demo',
     image: '/projects/waifu.jpg',
+  },
+  {
+    id: 'kitsuflow',
+    name: 'Kitsuflow',
+    tag: 'SaaS',
+    stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'RunPod'],
+    url: 'https://kitsuflow.vercel.app',
+    year: '2026',
+    status: 'active dev',
+    image: '/projects/kitsuflow.jpg',
+  },
+  {
+    id: 'forgix',
+    name: 'Forgix',
+    tag: 'Browser Game',
+    stack: ['Next.js 14', 'Three.js', 'React Three Fiber', 'Groq SDK', 'Supabase'],
+    url: 'https://www.forgix.xyz/',
+    year: '2024',
+    status: 'active dev',
+    image: '/projects/forgix.jpg',
+  },
+  {
+    id: 'docunify',
+    name: 'DocUnify',
+    tag: 'SaaS',
+    stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
+    year: '2025',
+    status: 'beta',
+    image: '/projects/docunify.jpg',
+    client: true,
+  },
+  {
+    id: 'calibre',
+    name: 'Calibre Studio',
+    tag: 'SaaS',
+    stack: ['Next.js', 'TypeScript', 'Framer Motion', 'Vercel'],
+    url: 'https://thecalibre.studio',
+    year: '2025',
+    status: 'production',
+    image: '/projects/calibre.jpg',
   },
   {
     id: 'saku',
@@ -215,10 +205,11 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        border: `1px solid ${hovered ? tagColor + '40' : 'var(--border)'}`,
+        border: `1px solid ${hovered ? tagColor + '60' : p.tag === 'AI Agent' ? tagColor + '25' : 'var(--border)'}`,
         borderRadius: '6px',
-        background: hovered ? tagColor + '06' : 'var(--bg-card)',
-        transition: 'border-color 0.25s, background 0.25s',
+        background: hovered ? tagColor + '08' : p.tag === 'AI Agent' ? tagColor + '04' : 'var(--bg-card)',
+        boxShadow: p.tag === 'AI Agent' ? `0 0 0 1px ${tagColor}15, 0 4px 24px ${tagColor}08` : 'none',
+        transition: 'border-color 0.25s, background 0.25s, box-shadow 0.25s',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -406,6 +397,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.15 }}
+          className="projects-filters"
           style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}
         >
           {/* All */}

@@ -47,6 +47,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
+      className="hero-section"
       style={{
         minHeight: '100vh',
         display: 'flex',
