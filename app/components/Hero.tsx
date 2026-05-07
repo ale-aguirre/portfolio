@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
+import { useLang } from '../context/LangContext'
 
 const marqueeItems = [
   'Claude API', '·', 'Next.js 16', '·', 'AI Agents', '·', 'TypeScript', '·',
@@ -12,13 +13,6 @@ const marqueeItems = [
   'RunPod', '·', 'React Three Fiber', '·', 'Node.js', '·', 'Vercel', '·',
 ]
 
-const stats = [
-  { value: '5+', label: 'years shipping' },
-  { value: '6',  label: 'AI projects in prod' },
-  { value: '3',  label: 'autonomous agents' },
-]
-
-// Clip reveal: wipes in from left to right
 const clipReveal = {
   hidden: { clipPath: 'inset(0 100% 0 0)' },
   visible: {
@@ -48,6 +42,7 @@ export default function Hero() {
   const posthog = usePostHog()
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { t } = useLang()
 
   return (
     <section
@@ -61,12 +56,12 @@ export default function Hero() {
         paddingBottom: '4rem',
       }}
     >
-      {/* ── Year stamp — top right ── */}
       <motion.div
         custom={0.6}
         variants={fadeIn}
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
+        className="hero-year"
         style={{
           position: 'absolute',
           top: 'clamp(2rem, 4vw, 3rem)',
@@ -83,12 +78,12 @@ export default function Hero() {
         2026
       </motion.div>
 
-      {/* ── Specialization — rotated left edge ── */}
       <motion.div
         custom={1.0}
         variants={fadeIn}
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
+        className="hero-rotated"
         style={{
           position: 'absolute',
           left: 'clamp(0.5rem, 1.5vw, 1.5rem)',
@@ -108,25 +103,11 @@ export default function Hero() {
         Frontend · AI · Browser
       </motion.div>
 
-      {/* ── Main hero grid ── */}
       <div
-        style={{
-          flex: 1,
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          alignItems: 'center',
-          gap: 'clamp(2rem, 4vw, 5rem)',
-          padding: 'clamp(6rem,12vw,9rem) clamp(3rem,8vw,6rem) 0 clamp(3rem,8vw,6rem)',
-          position: 'relative',
-          zIndex: 2,
-          maxWidth: '1400px',
-          margin: '0 auto',
-          width: '100%',
-        }}
+        className="hero-main-grid"
+        style={{ position: 'relative', zIndex: 2 }}
       >
-        {/* ── LEFT: Name + tagline + location ── */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-          {/* ALEXIS */}
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -134,6 +115,7 @@ export default function Hero() {
             style={{ overflow: 'hidden', lineHeight: 0.88 }}
           >
             <h1
+              className="hero-display-name"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(5.5rem, 16vw, 14rem)',
@@ -148,7 +130,6 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          {/* AGUIRRE — outlined, accent stroke */}
           <motion.div
             variants={clipReveal}
             initial="hidden"
@@ -157,6 +138,7 @@ export default function Hero() {
             style={{ overflow: 'hidden', lineHeight: 0.88, marginBottom: '0.6rem' }}
           >
             <h1
+              className="hero-display-name"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(5.5rem, 16vw, 14rem)',
@@ -172,7 +154,6 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          {/* Horizontal rule — extends full width */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
@@ -185,7 +166,6 @@ export default function Hero() {
             }}
           />
 
-          {/* Tagline */}
           <motion.p
             custom={0.65}
             variants={slideUp}
@@ -201,12 +181,11 @@ export default function Hero() {
               marginBottom: 'clamp(1rem, 2vw, 1.5rem)',
             }}
           >
-            Frontend engineer building{' '}
-            <span style={{ color: 'var(--text)', fontWeight: 500 }}>AI agents</span>,
-            SaaS products<br />and browser experiences.
+            {t.hero.tagline1}{' '}
+            <span style={{ color: 'var(--text)', fontWeight: 500 }}>{t.hero.taglineHighlight}</span>
+            {t.hero.tagline2}
           </motion.p>
 
-          {/* Location */}
           <motion.span
             custom={0.8}
             variants={fadeIn}
@@ -220,42 +199,29 @@ export default function Hero() {
               color: 'var(--text-ghost)',
             }}
           >
-            · Córdoba, ARG · Remote-first
+            {t.hero.location}
           </motion.span>
         </div>
 
-        {/* ── RIGHT: Stats + CTAs ── */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(2rem, 4vw, 3.5rem)',
-            alignItems: 'flex-start',
-            minWidth: 'clamp(180px, 20vw, 260px)',
-          }}
-        >
-          {/* Stats — vertical list */}
+        <div className="hero-right-col" style={{}}>
           <motion.div
             custom={0.7}
             variants={fadeIn}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0',
-              width: '100%',
-            }}
+            className="hero-stats-list"
+            style={{}}
           >
-            {stats.map((s, i) => (
+            {t.hero.stats.map((s, i) => (
               <div
                 key={s.label}
+                className="hero-stat-item"
                 style={{
                   display: 'flex',
                   alignItems: 'baseline',
                   gap: '0.75rem',
                   padding: '0.7rem 0',
-                  borderBottom: i < stats.length - 1 ? '1px solid var(--border)' : 'none',
+                  borderBottom: i < t.hero.stats.length - 1 ? '1px solid var(--border)' : 'none',
                 }}
               >
                 <span
@@ -286,20 +252,14 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* CTAs */}
           <motion.div
             custom={0.9}
             variants={slideUp}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.6rem',
-              width: '100%',
-            }}
+            className="hero-ctas-list"
+            style={{}}
           >
-            {/* Primary CTA — the ONLY place cyan is used as fill */}
             <motion.a
               href="#projects"
               onClick={() => posthog?.capture('click_cta_work')}
@@ -323,13 +283,12 @@ export default function Hero() {
                 textTransform: 'uppercase',
               }}
             >
-              <span>View work</span>
+              <span>{t.hero.ctaWork}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
             </motion.a>
 
-            {/* Secondary CTA — ghost */}
             <motion.a
               href="mailto:aguirrealexis.cba@gmail.com"
               onClick={() => posthog?.capture('click_cta_contact')}
@@ -361,7 +320,7 @@ export default function Hero() {
                 e.currentTarget.style.color = 'var(--text-muted)'
               }}
             >
-              <span>Get in touch</span>
+              <span>{t.hero.ctaContact}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
@@ -370,7 +329,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Marquee — bottom ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -411,6 +369,7 @@ export default function Hero() {
           ))}
         </div>
       </motion.div>
+
     </section>
   )
 }

@@ -1,14 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-
-const links = [
-  ['#projects', 'Work'],
-  ['#stack', 'Stack'],
-  ['#contact', 'Contact'],
-]
+import { useLang } from '../context/LangContext'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
+  const { lang, setLang, t } = useLang()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -37,7 +33,7 @@ export default function Nav() {
       </a>
 
       <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        {links.map(([href, label]) => (
+        {([['#projects', t.nav.work], ['#stack', t.nav.stack], ['#contact', t.nav.contact]] as const).map(([href, label]) => (
           <a key={label} href={href} style={{
             fontFamily: 'var(--font-body)',
             fontSize: '0.82rem',
@@ -50,6 +46,35 @@ export default function Nav() {
             {label}
           </a>
         ))}
+
+        {/* Language toggle */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '0',
+          fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
+          border: '1px solid var(--border)', borderRadius: '3px',
+          overflow: 'hidden',
+        }}>
+          {(['en', 'es'] as const).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              style={{
+                padding: '0.3rem 0.55rem',
+                background: lang === l ? 'var(--accent)' : 'transparent',
+                color: lang === l ? '#000' : 'var(--text-muted)',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                transition: 'background .2s, color .2s',
+              }}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
 
         <a
           href="https://github.com/ale-aguirre"

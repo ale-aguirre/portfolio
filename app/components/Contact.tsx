@@ -2,11 +2,13 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
+import { useLang } from '../context/LangContext'
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const posthog = usePostHog()
+  const { t } = useLang()
 
   return (
     <section id="contact" style={{
@@ -26,7 +28,7 @@ export default function Contact() {
             letterSpacing: '0.18em', textTransform: 'uppercase',
             color: 'var(--accent)', marginBottom: '1rem',
           }}>
-            Contact
+            {t.contact.label}
           </span>
 
           <h2 style={{
@@ -38,8 +40,8 @@ export default function Contact() {
             color: 'var(--text)',
             marginBottom: '1.5rem',
           }}>
-            Let&apos;s build<br />
-            <em style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 300 }}>something.</em>
+            {t.contact.title1}<br />
+            <em style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 300 }}>{t.contact.title2}</em>
           </h2>
 
           <p style={{
@@ -48,8 +50,7 @@ export default function Contact() {
             color: 'var(--text-muted)', lineHeight: 1.65,
             maxWidth: '420px', marginBottom: '2.5rem',
           }}>
-            Open to full-time remote roles and interesting freelance projects in AI, SaaS and frontend engineering.
-            I respond to every message.
+            {t.contact.body}
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -103,7 +104,6 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* Footer */}
         <div style={{
           marginTop: '5rem',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -137,7 +137,7 @@ export default function Contact() {
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              Download CV
+              {t.contact.downloadCV}
             </a>
 
             <span style={{

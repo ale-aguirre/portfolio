@@ -1,6 +1,7 @@
 'use client'
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useLang } from '../context/LangContext'
 
 const groups = [
   {
@@ -32,6 +33,7 @@ const groups = [
 export default function Stack() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const { t } = useLang()
 
   return (
     <section id="stack" style={{
@@ -39,7 +41,6 @@ export default function Stack() {
       borderTop: '1px solid var(--border)',
     }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        {/* Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -52,7 +53,7 @@ export default function Stack() {
               fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
               letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--accent)',
             }}>
-              Tech stack
+              {t.stack.label}
             </span>
             <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
           </div>
@@ -64,11 +65,10 @@ export default function Stack() {
             lineHeight: 1.1,
             letterSpacing: '-0.02em',
           }}>
-            What I work with
+            {t.stack.title}
           </h2>
         </motion.div>
 
-        {/* Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -91,13 +91,10 @@ export default function Stack() {
                 overflow: 'hidden',
               }}
             >
-              {/* Top accent */}
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
                 background: 'var(--accent)', opacity: 0.6,
               }} />
-
-              {/* Glow */}
               <div style={{
                 position: 'absolute', bottom: '-30%', right: '-20%',
                 width: '120px', height: '120px', borderRadius: '50%',
