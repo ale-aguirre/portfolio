@@ -55,7 +55,7 @@ export const translations = {
           detail: 'Next.js 16 + Supabase · LadyNuggets as first client · Stripe subscriptions · RunPod integration',
         },
         docunify: {
-          desc: 'Enterprise document reconciliation platform. Semantic diff engine detects discrepancies between supplier orders and invoicing.',
+          desc: 'Enterprise document reconciliation platform. Semantic engine detects inconsistencies and duplicates across large document sets.',
           detail: 'Private deployment for enterprise client · Railway backend + Vercel frontend · semantic similarity engine · Python + Next.js',
         },
         gr: {
@@ -159,7 +159,7 @@ export const translations = {
           detail: 'Next.js 16 + Supabase · LadyNuggets como primer cliente · suscripciones Stripe · integración RunPod',
         },
         docunify: {
-          desc: 'Plataforma enterprise de reconciliación de documentos. Motor de diff semántico que detecta discrepancias entre pedidos de proveedores y facturación.',
+          desc: 'Plataforma enterprise de reconciliación de documentos. Motor semántico que detecta inconsistencias y duplicados en grandes volúmenes de documentos.',
           detail: 'Deployment privado para cliente enterprise · backend Railway + frontend Vercel · motor de similitud semántica · Python + Next.js',
         },
         gr: {
