@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
 import { useLang } from '../context/LangContext'
+import ScrambleText from './ScrambleText'
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement>(null)
@@ -28,7 +29,7 @@ export default function Contact() {
             letterSpacing: '0.18em', textTransform: 'uppercase',
             color: 'var(--accent)', marginBottom: '1rem',
           }}>
-            {t.contact.label}
+            <ScrambleText>{t.contact.label}</ScrambleText>
           </span>
 
           <h2 style={{
@@ -40,8 +41,10 @@ export default function Contact() {
             color: 'var(--text)',
             marginBottom: '1.5rem',
           }}>
-            {t.contact.title1}<br />
-            <em style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 300 }}>{t.contact.title2}</em>
+            <ScrambleText>{t.contact.title1}</ScrambleText><br />
+            <em style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontWeight: 300 }}>
+              <ScrambleText>{t.contact.title2}</ScrambleText>
+            </em>
           </h2>
 
           <p style={{
@@ -50,7 +53,7 @@ export default function Contact() {
             color: 'var(--text-muted)', lineHeight: 1.65,
             maxWidth: '420px', marginBottom: '2.5rem',
           }}>
-            {t.contact.body}
+            <ScrambleText duration={700}>{t.contact.body}</ScrambleText>
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -137,7 +140,7 @@ export default function Contact() {
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              {t.contact.downloadCV}
+              <ScrambleText>{t.contact.downloadCV}</ScrambleText>
             </a>
 
             <span style={{

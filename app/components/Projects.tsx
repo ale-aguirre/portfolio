@@ -3,18 +3,20 @@ import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
 import { useLang } from '../context/LangContext'
+import ScrambleText from './ScrambleText'
 
-type Tag = 'AI Agent' | 'SaaS' | 'Browser Game' | 'Image Pipeline' | 'Dashboard' | 'E-commerce' | 'Landing' | 'Frontend'
+type Tag = 'AI Agent' | 'SaaS' | 'Browser Game' | 'Pipeline' | 'Dashboard' | 'E-commerce' | 'Landing' | 'Frontend' | 'Custom Software'
 
 const TAG_COLORS: Record<Tag, string> = {
-  'AI Agent':       '#00d9ff',
-  'SaaS':           '#a855f7',
-  'Browser Game':   '#f59e0b',
-  'Image Pipeline': '#ec4899',
-  'Dashboard':      '#22c55e',
-  'E-commerce':     '#f97316',
-  'Landing':        '#6366f1',
-  'Frontend':       '#e879f9',
+  'AI Agent':        '#00d9ff',
+  'SaaS':            '#a855f7',
+  'Browser Game':    '#f59e0b',
+  'Pipeline':        '#ec4899',
+  'Dashboard':       '#22c55e',
+  'E-commerce':      '#f97316',
+  'Landing':         '#6366f1',
+  'Frontend':        '#e879f9',
+  'Custom Software': '#94a3b8',
 }
 
 type Project = {
@@ -24,7 +26,7 @@ type Project = {
   stack: string[]
   url?: string
   year: string
-  status: 'production' | 'active dev' | 'beta' | 'demo'
+  status: 'production' | 'active dev' | 'beta' | 'demo' | 'archived'
   image?: string
   client?: boolean
 }
@@ -36,7 +38,7 @@ const projects: Project[] = [
     tag: 'AI Agent',
     stack: ['Next.js 16', 'Claude Agent SDK', 'TypeScript', 'Chrome CDP', 'Telegram'],
     year: '2025',
-    status: 'active dev',
+    status: 'archived',
     image: '/projects/cortex.jpg',
   },
   {
@@ -46,7 +48,7 @@ const projects: Project[] = [
     stack: ['Node.js', 'Playwright', 'Claude Haiku', 'Chrome CDP', 'Supabase'],
     url: 'https://github.com/ale-aguirre/claude-job-hunter',
     year: '2025',
-    status: 'active dev',
+    status: 'archived',
     image: '/projects/job-hunter.jpg',
   },
   {
@@ -60,7 +62,7 @@ const projects: Project[] = [
   {
     id: 'ladymanager',
     name: 'LadyManager',
-    tag: 'Image Pipeline',
+    tag: 'Pipeline',
     stack: ['Next.js 14', 'FastAPI', 'RunPod', 'Stable Diffusion XL', 'Python'],
     year: '2024',
     status: 'production',
@@ -99,7 +101,7 @@ const projects: Project[] = [
   {
     id: 'docunify',
     name: 'DocUnify',
-    tag: 'SaaS',
+    tag: 'Custom Software',
     stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
     year: '2025',
     status: 'beta',
@@ -157,16 +159,6 @@ const projects: Project[] = [
     image: '/projects/portfolio.jpg',
   },
   {
-    id: 'forgix',
-    name: 'Forgix',
-    tag: 'Browser Game',
-    stack: ['Next.js 14', 'Three.js', 'React Three Fiber', 'Groq SDK', 'Supabase'],
-    url: 'https://www.forgix.xyz/',
-    year: '2024',
-    status: 'active dev',
-    image: '/projects/forgix.jpg',
-  },
-  {
     id: 'kage',
     name: 'Kage Legacy',
     tag: 'Browser Game',
@@ -183,6 +175,7 @@ const STATUS_COLORS = {
   'active dev': { bg: 'rgba(0,217,255,0.08)',   text: 'var(--accent)', dot: 'var(--accent)' },
   'beta':       { bg: 'rgba(245,158,11,0.1)',   text: '#f59e0b',      dot: '#f59e0b' },
   'demo':       { bg: 'rgba(99,102,241,0.1)',   text: '#6366f1',      dot: '#6366f1' },
+  'archived':   { bg: 'rgba(148,163,184,0.08)', text: '#94a3b8',      dot: '#94a3b8' },
 }
 
 const ALL_TAGS = Array.from(new Set(projects.map(p => p.tag))) as Tag[]
@@ -217,7 +210,7 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
       }}
     >
       {/* Screenshot — always reserves space, only opacity changes to avoid layout shift */}
-      {p.image && (
+      {p.image ? (
         <div style={{
           height: '150px',
           overflow: 'hidden',
@@ -239,6 +232,57 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
             position: 'absolute',
             bottom: 0, left: 0, right: 0,
             height: '60px',
+            background: 'linear-gradient(to bottom, transparent, var(--bg-card))',
+          }} />
+        </div>
+      ) : (
+        <div style={{
+          height: '150px',
+          flexShrink: 0,
+          position: 'relative',
+          overflow: 'hidden',
+          background: `
+            radial-gradient(circle at 80% 20%, ${tagColor}18 0%, transparent 55%),
+            radial-gradient(circle at 15% 90%, ${tagColor}10 0%, transparent 50%),
+            linear-gradient(135deg, var(--bg-card) 0%, rgba(7,7,9,0.95) 100%)
+          `,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: 'var(--font-mono)',
+          color: tagColor,
+        }}>
+          {/* grid lines */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: `linear-gradient(${tagColor}08 1px, transparent 1px), linear-gradient(90deg, ${tagColor}08 1px, transparent 1px)`,
+            backgroundSize: '24px 24px',
+            maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          }} />
+          {/* glyph */}
+          <div style={{
+            position: 'relative',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
+            zIndex: 1,
+          }}>
+            <span style={{
+              fontSize: '2.4rem', lineHeight: 1, opacity: 0.75,
+              textShadow: `0 0 24px ${tagColor}80`,
+            }}>
+              ◎
+            </span>
+            <span style={{
+              fontSize: '0.58rem', letterSpacing: '0.22em', textTransform: 'uppercase',
+              color: 'var(--text-ghost)', opacity: 0.85,
+            }}>
+              {p.name}
+            </span>
+          </div>
+          <div style={{
+            position: 'absolute',
+            bottom: 0, left: 0, right: 0,
+            height: '50px',
             background: 'linear-gradient(to bottom, transparent, var(--bg-card))',
           }} />
         </div>
@@ -322,13 +366,13 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
         {tr && (
           <>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.83rem', color: 'var(--text)', lineHeight: 1.65, fontWeight: 300 }}>
-              {tr.desc}
+              <ScrambleText duration={650}>{tr.desc}</ScrambleText>
             </p>
             <p style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.66rem', color: 'var(--text-muted)',
               lineHeight: 1.5, borderLeft: `2px solid ${tagColor}30`, paddingLeft: '0.6rem',
             }}>
-              {tr.detail}
+              <ScrambleText duration={600}>{tr.detail}</ScrambleText>
             </p>
           </>
         )}
@@ -377,18 +421,18 @@ export default function Projects() {
               fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
               letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--accent)',
             }}>
-              {t.projects.sectionLabel}
+              <ScrambleText>{t.projects.sectionLabel}</ScrambleText>
             </span>
             <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'var(--text-ghost)' }}>
-              {filtered.length} {t.projects.countSuffix}
+              {filtered.length} <ScrambleText>{t.projects.countSuffix}</ScrambleText>
             </span>
           </div>
           <h2 style={{
             fontFamily: 'var(--font-head)', fontSize: 'clamp(2rem, 4vw, 3rem)',
             fontWeight: 500, color: 'var(--text)', lineHeight: 1.1, letterSpacing: '-0.02em',
           }}>
-            {t.projects.sectionTitle}
+            <ScrambleText>{t.projects.sectionTitle}</ScrambleText>
           </h2>
         </motion.div>
 
@@ -414,7 +458,7 @@ export default function Projects() {
               cursor: 'pointer', transition: 'all 0.2s',
             }}
           >
-            {t.projects.filterAll}
+            <ScrambleText>{t.projects.filterAll}</ScrambleText>
           </button>
 
           {ALL_TAGS.map(tag => {

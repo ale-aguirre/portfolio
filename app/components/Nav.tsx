@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useLang } from '../context/LangContext'
+import ScrambleText from './ScrambleText'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -43,7 +44,7 @@ export default function Nav() {
           }}
           onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
           onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}>
-            {label}
+            <ScrambleText>{label}</ScrambleText>
           </a>
         ))}
 

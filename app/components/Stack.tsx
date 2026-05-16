@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLang } from '../context/LangContext'
+import ScrambleText from './ScrambleText'
 
 const groups = [
   {
@@ -53,7 +54,7 @@ export default function Stack() {
               fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
               letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--accent)',
             }}>
-              {t.stack.label}
+              <ScrambleText>{t.stack.label}</ScrambleText>
             </span>
             <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
           </div>
@@ -65,7 +66,7 @@ export default function Stack() {
             lineHeight: 1.1,
             letterSpacing: '-0.02em',
           }}>
-            {t.stack.title}
+            <ScrambleText>{t.stack.title}</ScrambleText>
           </h2>
         </motion.div>
 

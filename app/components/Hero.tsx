@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
 import { useLang } from '../context/LangContext'
+import ScrambleText from './ScrambleText'
 
 const marqueeItems = [
   'Claude API', '·', 'Next.js 16', '·', 'AI Agents', '·', 'TypeScript', '·',
@@ -182,9 +183,9 @@ export default function Hero() {
               marginBottom: 'clamp(1rem, 2vw, 1.5rem)',
             }}
           >
-            {t.hero.tagline1}{' '}
-            <span style={{ color: 'var(--text)', fontWeight: 500 }}>{t.hero.taglineHighlight}</span>
-            {t.hero.tagline2}
+            <ScrambleText>{t.hero.tagline1}</ScrambleText>{' '}
+            <ScrambleText style={{ color: 'var(--text)', fontWeight: 500 }}>{t.hero.taglineHighlight}</ScrambleText>
+            <ScrambleText>{t.hero.tagline2}</ScrambleText>
           </motion.p>
 
           <motion.span
@@ -200,7 +201,7 @@ export default function Hero() {
               color: 'var(--text-ghost)',
             }}
           >
-            {t.hero.location}
+            <ScrambleText>{t.hero.location}</ScrambleText>
           </motion.span>
         </div>
 
@@ -247,7 +248,7 @@ export default function Hero() {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {s.label}
+                  <ScrambleText>{s.label}</ScrambleText>
                 </span>
               </div>
             ))}
@@ -284,7 +285,7 @@ export default function Hero() {
                 textTransform: 'uppercase',
               }}
             >
-              <span>{t.hero.ctaWork}</span>
+              <ScrambleText>{t.hero.ctaWork}</ScrambleText>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
@@ -321,7 +322,7 @@ export default function Hero() {
                 e.currentTarget.style.color = 'var(--text-muted)'
               }}
             >
-              <span>{t.hero.ctaContact}</span>
+              <ScrambleText>{t.hero.ctaContact}</ScrambleText>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
