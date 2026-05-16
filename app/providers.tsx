@@ -38,6 +38,8 @@ function LenisProvider({ children }: { children: ReactNode }) {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     let rafId: number;
     const raf = (time: number) => {
       lenis.raf(time);
@@ -48,6 +50,7 @@ function LenisProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

@@ -4,6 +4,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { usePostHog } from 'posthog-js/react'
 import { useLang } from '../context/LangContext'
 import ScrambleText from './ScrambleText'
+import CaseStudyModal from './CaseStudyModal'
+import { caseStudies } from '../data/case-studies'
 
 type Tag = 'AI Agent' | 'SaaS' | 'Browser Game' | 'Pipeline' | 'Dashboard' | 'E-commerce' | 'Landing' | 'Frontend' | 'Custom Software'
 
@@ -16,7 +18,7 @@ const TAG_COLORS: Record<Tag, string> = {
   'E-commerce':      '#f97316',
   'Landing':         '#6366f1',
   'Frontend':        '#e879f9',
-  'Custom Software': '#94a3b8',
+  'Custom Software': '#14b8a6',
 }
 
 type Project = {
@@ -33,12 +35,22 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: 'docunify',
+    name: 'DocUnify',
+    tag: 'Custom Software',
+    stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
+    year: '2025',
+    status: 'beta',
+    image: '/projects/docunify.jpg',
+    client: true,
+  },
+  {
     id: 'cortex',
     name: 'CORTEX',
     tag: 'AI Agent',
     stack: ['Next.js 16', 'Claude Agent SDK', 'TypeScript', 'Chrome CDP', 'Telegram'],
     year: '2025',
-    status: 'archived',
+    status: 'active dev',
     image: '/projects/cortex.jpg',
   },
   {
@@ -48,7 +60,7 @@ const projects: Project[] = [
     stack: ['Node.js', 'Playwright', 'Claude Haiku', 'Chrome CDP', 'Supabase'],
     url: 'https://github.com/ale-aguirre/claude-job-hunter',
     year: '2025',
-    status: 'archived',
+    status: 'active dev',
     image: '/projects/job-hunter.jpg',
   },
   {
@@ -97,16 +109,6 @@ const projects: Project[] = [
     year: '2024',
     status: 'active dev',
     image: '/projects/forgix.jpg',
-  },
-  {
-    id: 'docunify',
-    name: 'DocUnify',
-    tag: 'Custom Software',
-    stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
-    year: '2025',
-    status: 'beta',
-    image: '/projects/docunify.jpg',
-    client: true,
   },
   {
     id: 'calibre',
@@ -182,11 +184,13 @@ const ALL_TAGS = Array.from(new Set(projects.map(p => p.tag))) as Tag[]
 
 function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: boolean }) {
   const [hovered, setHovered] = useState(false)
+  const [caseOpen, setCaseOpen] = useState(false)
   const posthog = usePostHog()
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const tagColor = TAG_COLORS[p.tag]
   const statusStyle = STATUS_COLORS[p.status]
   const tr = t.projects.items[p.id as keyof typeof t.projects.items]
+  const caseStudy = caseStudies[p.id]
 
   return (
     <motion.div
@@ -389,7 +393,45 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
             {p.year}
           </span>
         </div>
+
+        {caseStudy && (
+          <button
+            onClick={() => { setCaseOpen(true); posthog?.capture('open_case_study', { project: p.id }) }}
+            style={{
+              marginTop: '0.4rem',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem',
+              padding: '0.5rem 0.75rem',
+              background: `${tagColor}10`,
+              border: `1px solid ${tagColor}40`,
+              borderRadius: '3px',
+              cursor: 'pointer',
+              color: tagColor,
+              fontFamily: 'var(--font-mono)', fontSize: '0.66rem',
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+              transition: 'background .2s, border-color .2s, transform .15s',
+              width: '100%',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = `${tagColor}20`; e.currentTarget.style.borderColor = `${tagColor}80` }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = `${tagColor}10`; e.currentTarget.style.borderColor = `${tagColor}40` }}
+          >
+            <span>{lang === 'es' ? 'Ver case study' : 'View case study'}</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        )}
       </div>
+
+      {caseStudy && (
+        <CaseStudyModal
+          open={caseOpen}
+          onClose={() => setCaseOpen(false)}
+          caseStudy={caseStudy}
+          projectName={p.name}
+          tagColor={tagColor}
+          lang={lang}
+        />
+      )}
     </motion.div>
   )
 }
