@@ -5,10 +5,11 @@ import { usePostHog } from 'posthog-js/react'
 import { useLang } from '../context/LangContext'
 import ScrambleText from './ScrambleText'
 
+// One pass only. The track renders it twice so the -50% loop lands exactly on
+// the start of the copy; duplicating the list here instead made the halves
+// unequal (the flex gap between the two passes is not part of either half),
+// which is what made the strip jump on every cycle.
 const marqueeItems = [
-  'Claude API', '·', 'Next.js 16', '·', 'AI Agents', '·', 'TypeScript', '·',
-  'Supabase', '·', 'LanceDB', '·', 'Playwright', '·', 'Groq', '·',
-  'RunPod', '·', 'React Three Fiber', '·', 'Node.js', '·', 'Vercel', '·',
   'Claude API', '·', 'Next.js 16', '·', 'AI Agents', '·', 'TypeScript', '·',
   'Supabase', '·', 'LanceDB', '·', 'Playwright', '·', 'Groq', '·',
   'RunPod', '·', 'React Three Fiber', '·', 'Node.js', '·', 'Vercel', '·',
@@ -349,26 +350,31 @@ export default function Hero() {
         <div
           style={{
             display: 'flex',
-            gap: '2rem',
             width: 'max-content',
             animation: 'marquee 40s linear infinite',
           }}
         >
-          {marqueeItems.map((item, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.58rem',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: item === '·' ? 'var(--accent)' : 'var(--text-ghost)',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {item}
-            </span>
-          ))}
+          {/* Two identical passes. Spacing lives on the item as padding, not as
+              a flex gap on the track, so each pass is exactly half the width. */}
+          {[0, 1].map(pass =>
+            marqueeItems.map((item, i) => (
+              <span
+                key={`${pass}-${i}`}
+                aria-hidden={pass === 1 || undefined}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.58rem',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: item === '·' ? 'var(--accent)' : 'var(--text-ghost)',
+                  whiteSpace: 'nowrap',
+                  paddingRight: '2rem',
+                }}
+              >
+                {item}
+              </span>
+            )),
+          )}
         </div>
       </motion.div>
 

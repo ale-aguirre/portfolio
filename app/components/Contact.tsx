@@ -78,7 +78,7 @@ export default function Contact() {
             <span style={{ color: 'var(--text-ghost)' }}>·</span>
 
             <a
-              href="https://linkedin.com/in/alexisaguirre-reactdev"
+              href="https://linkedin.com/in/alexisaguirre-aideveloper"
               target="_blank" rel="noopener noreferrer"
               onClick={() => posthog?.capture('click_social', { platform: 'linkedin' })}
               style={{
