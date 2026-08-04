@@ -348,10 +348,11 @@ export default function Hero() {
         }}
       >
         <div
+          data-marquee
           style={{
             display: 'flex',
             width: 'max-content',
-            animation: 'marquee 40s linear infinite',
+            animation: 'marquee 160s linear infinite',
           }}
         >
           {/* Two identical passes. Spacing lives on the item as padding, not as

@@ -50,10 +50,6 @@ export const translations = {
           desc: 'E-commerce for lingerie brand. Custom storefront with MercadoPago payments, product management and order tracking.',
           detail: 'Next.js + Supabase · MercadoPago integration · custom admin panel · Vercel deploy',
         },
-        kitsuflow: {
-          desc: 'SaaS hub for anime/AI artists. Centralizes generation tools, model management and client delivery workflows.',
-          detail: 'Next.js 16 + Supabase · LadyNuggets as first client · Stripe subscriptions · RunPod integration',
-        },
         docunify: {
           desc: 'Enterprise document reconciliation platform. Semantic engine detects inconsistencies and duplicates across large document sets.',
           detail: 'Private deployment for enterprise client · Railway backend + Vercel frontend · semantic similarity engine · Python + Next.js',
@@ -153,10 +149,6 @@ export const translations = {
         saku: {
           desc: 'E-commerce para marca de lencería. Storefront propio con pagos MercadoPago, gestión de productos y seguimiento de pedidos.',
           detail: 'Next.js + Supabase · integración MercadoPago · panel admin propio · deploy en Vercel',
-        },
-        kitsuflow: {
-          desc: 'Hub SaaS para artistas anime/IA. Centraliza herramientas de generación, gestión de modelos y entrega a clientes.',
-          detail: 'Next.js 16 + Supabase · LadyNuggets como primer cliente · suscripciones Stripe · integración RunPod',
         },
         docunify: {
           desc: 'Plataforma enterprise de reconciliación de documentos. Motor semántico que detecta inconsistencias y duplicados en grandes volúmenes de documentos.',

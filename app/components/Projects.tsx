@@ -91,16 +91,6 @@ const projects: Project[] = [
     image: '/projects/waifu.jpg',
   },
   {
-    id: 'kitsuflow',
-    name: 'Kitsuflow',
-    tag: 'SaaS',
-    stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'RunPod'],
-    url: 'https://kitsuflow.vercel.app',
-    year: '2026',
-    status: 'active dev',
-    image: '/projects/kitsuflow.jpg',
-  },
-  {
     id: 'forgix',
     name: 'Forgix',
     tag: 'Browser Game',
