@@ -90,7 +90,19 @@ main, nav, section, footer { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
+    /* Without this line an infinite animation is not cut short: it runs at
+       .01ms per cycle forever, which is a blur, not less motion. */
+    animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* The marquee keeps running. Restated here rather than excluded above with
+     :not(), because the CSS minifier collapses `*:not([data-marquee])` back
+     to `*`. An attribute selector outranks `*`, so this wins on specificity. */
+  [data-marquee] {
+    animation-duration: 160s !important;
+    animation-iteration-count: infinite !important;
   }
 }
 
@@ -98,7 +110,10 @@ main, nav, section, footer { position: relative; z-index: 1; }
 .hero-main-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr auto;
+  /* minmax(0, 1fr), not 1fr: a grid item defaults to min-width:auto, so the
+     display-size <h1> sets a floor for the first column and pushes the second
+     one past the right edge. The 0 minimum lets the name column shrink. */
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(2rem, 4vw, 5rem);
   padding: clamp(6rem,12vw,9rem) clamp(3rem,8vw,6rem) 0 clamp(3rem,8vw,6rem);
@@ -129,6 +144,33 @@ main, nav, section, footer { position: relative; z-index: 1; }
   flex-direction: column;
   gap: 0.6rem;
   width: 100%;
+}
+
+/* ── Hero, laptop and small desktop ──
+   Between 769px and 1200px the two columns stopped fitting side by side: the
+   stats and CTAs were clipped by the section's overflow:hidden, so "AUTONOMOUS
+   AGENTS" and "VIEW WORK" were cut mid-word. Stack them instead. */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .hero-main-grid {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 2.5rem;
+    padding-top: clamp(5rem, 9vw, 7rem);
+  }
+
+  .hero-right-col {
+    width: 100%;
+    max-width: 30rem;
+    min-width: 0;
+  }
+
+  .hero-display-name {
+    font-size: clamp(4.5rem, 13vw, 11rem) !important;
+  }
+
+  /* Once the columns stack, the rotated label sits on top of the tagline.
+     It is decorative and already hidden below 769px. */
+  .hero-rotated { display: none; }
 }
 
 /* ── Hero mobile ── */

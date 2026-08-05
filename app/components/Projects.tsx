@@ -31,144 +31,73 @@ type Project = {
   status: 'production' | 'active dev' | 'beta' | 'demo' | 'archived'
   image?: string
   client?: boolean
+  /** One verifiable number. Shown above the description. */
+  metric?: string
 }
 
 const projects: Project[] = [
   {
-    id: 'docunify',
-    name: 'DocUnify',
-    tag: 'Custom Software',
-    stack: ['Next.js', 'TypeScript', 'Railway', 'Python'],
-    year: '2025',
-    status: 'beta',
-    image: '/projects/docunify.jpg',
-    client: true,
-  },
-  {
-    id: 'cortex',
-    name: 'CORTEX',
+    id: 'intent-gate',
+    name: 'intent-gate',
     tag: 'AI Agent',
-    stack: ['Next.js 16', 'Claude Agent SDK', 'TypeScript', 'Chrome CDP', 'Telegram'],
-    year: '2025',
-    status: 'active dev',
-    image: '/projects/cortex.jpg',
+    stack: ['TypeScript', 'Vitest', 'Zero deps'],
+    url: 'https://github.com/ale-aguirre/intent-gate',
+    year: '2026',
+    status: 'production',
+    metric: '25 tests, CI on Node 20 and 22',
   },
   {
     id: 'job-hunter',
     name: 'job-hunter',
     tag: 'AI Agent',
-    stack: ['Node.js', 'Playwright', 'Claude Haiku', 'Chrome CDP', 'Supabase'],
+    stack: ['Node.js', 'Playwright', 'Claude API', 'Groq', 'SQLite'],
     url: 'https://github.com/ale-aguirre/claude-job-hunter',
-    year: '2025',
-    status: 'active dev',
-    image: '/projects/job-hunter.jpg',
-  },
-  {
-    id: 'nuggets-core',
-    name: 'nuggets-core',
-    tag: 'AI Agent',
-    stack: ['Node.js', 'LanceDB', 'OpenRouter', 'Telegram Bot API', 'TypeScript'],
-    year: '2025',
-    status: 'active dev',
-  },
-  {
-    id: 'ladymanager',
-    name: 'LadyManager',
-    tag: 'Pipeline',
-    stack: ['Next.js 14', 'FastAPI', 'RunPod', 'Stable Diffusion XL', 'Python'],
-    year: '2024',
-    status: 'production',
-    image: '/projects/ladymanager.jpg',
-  },
-  {
-    id: 'waifu',
-    name: 'MyAiko',
-    tag: 'AI Agent',
-    stack: ['Next.js', 'TypeScript', 'OpenAI', 'Vercel'],
-    url: 'https://waifu-assistant.vercel.app',
-    year: '2024',
-    status: 'demo',
-    image: '/projects/waifu.jpg',
-  },
-  {
-    id: 'kitsuflow',
-    name: 'Kitsuflow',
-    tag: 'SaaS',
-    stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'RunPod'],
-    url: 'https://kitsuflow.vercel.app',
     year: '2026',
     status: 'active dev',
-    image: '/projects/kitsuflow.jpg',
+    image: '/projects/job-hunter.jpg',
+    metric: '316 applications submitted autonomously, 248 verified',
+  },
+  {
+    id: 'cortex',
+    name: 'CORTEX',
+    tag: 'AI Agent',
+    stack: ['Next.js 16', 'Claude Agent SDK', 'Groq', 'SQLite', 'Zod'],
+    year: '2026',
+    status: 'active dev',
+    image: '/projects/cortex.jpg',
+    metric: '21k lines of TypeScript, model routing by cost',
   },
   {
     id: 'forgix',
     name: 'Forgix',
     tag: 'Browser Game',
-    stack: ['Next.js 14', 'Three.js', 'React Three Fiber', 'Groq SDK', 'Supabase'],
+    stack: ['Next.js', 'Supabase', 'Claude API', 'Phaser 3', 'Stripe'],
     url: 'https://www.forgix.xyz/',
-    year: '2024',
-    status: 'active dev',
+    year: '2026',
+    status: 'production',
     image: '/projects/forgix.jpg',
+    metric: '27k lines of TypeScript, live in production',
   },
   {
-    id: 'calibre',
-    name: 'Calibre Studio',
+    id: 'skuscribe',
+    name: 'SKUscribe',
     tag: 'SaaS',
-    stack: ['Next.js', 'TypeScript', 'Framer Motion', 'Vercel'],
-    url: 'https://thecalibre.studio',
-    year: '2025',
-    status: 'production',
-    image: '/projects/calibre.jpg',
-  },
-  {
-    id: 'saku',
-    name: 'Sakú Store',
-    tag: 'E-commerce',
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'MercadoPago'],
-    year: '2025',
-    status: 'production',
-    image: '/projects/saku.jpg',
-    client: true,
-  },
-  {
-    id: 'distribuidora',
-    name: 'Aguirre Comercial',
-    tag: 'E-commerce',
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'MercadoPago'],
-    year: '2025',
-    status: 'production',
-    image: '/projects/distribuidora.jpg',
-    client: true,
-  },
-  {
-    id: 'gr',
-    name: 'GR Servicios',
-    tag: 'Landing',
-    stack: ['Next.js 14', 'TypeScript', 'Framer Motion', 'Vercel'],
+    stack: ['Next.js', 'Prisma', 'Supabase', 'Claude API', 'Stripe'],
+    url: 'https://skuscribe.com',
     year: '2026',
     status: 'production',
-    image: '/projects/gr.jpg',
+    metric: '37k lines, built solo end to end',
+  },
+  {
+    id: 'docunify',
+    name: 'DocUnify',
+    tag: 'Pipeline',
+    stack: ['Python', 'Flask', 'Groq', 'ChromaDB', 'Next.js'],
+    year: '2025',
+    status: 'beta',
+    image: '/projects/docunify.jpg',
     client: true,
-  },
-  {
-    id: 'portfolio',
-    name: 'Este portfolio',
-    tag: 'Frontend',
-    stack: ['Next.js 16', 'TypeScript', 'Framer Motion', 'PostHog', 'Playwright'],
-    url: 'https://portfolio-aguirre-alexis.vercel.app',
-    year: '2026',
-    status: 'production',
-    image: '/projects/portfolio.jpg',
-  },
-  {
-    id: 'kage',
-    name: 'Kage Legacy',
-    tag: 'Browser Game',
-    stack: ['Next.js', 'Gemini AI', 'Supabase', 'TypeScript'],
-    url: 'https://kage-legacy.vercel.app',
-    year: '2024',
-    status: 'demo',
-    image: '/projects/kage.jpg',
+    metric: 'RAG over a standards corpus, key rotation on rate limits',
   },
 ]
 
@@ -366,6 +295,15 @@ function ProjectCard({ p, index, inView }: { p: Project; index: number; inView: 
             )}
           </div>
         </div>
+
+        {p.metric && (
+          <p style={{
+            fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text)',
+            letterSpacing: '0.01em', lineHeight: 1.5,
+          }}>
+            {p.metric}
+          </p>
+        )}
 
         {tr && (
           <>
